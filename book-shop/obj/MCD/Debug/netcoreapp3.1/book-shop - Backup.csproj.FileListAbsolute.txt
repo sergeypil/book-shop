@@ -1,0 +1,8 @@
+C:\Users\user\Desktop\c#\book-shop\book-shop\obj\MCD\Debug\netcoreapp3.1\book-shop - Backup.csproj.AssemblyReference.cache
+C:\Users\user\Desktop\c#\book-shop\book-shop\obj\MCD\Debug\netcoreapp3.1\book-shop - Backup.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\c#\book-shop\book-shop\obj\MCD\Debug\netcoreapp3.1\book-shop - Backup.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\c#\book-shop\book-shop\obj\MCD\Debug\netcoreapp3.1\book-shop - Backup.AssemblyInfo.cs
+C:\Users\user\Desktop\c#\book-shop\book-shop\obj\MCD\Debug\netcoreapp3.1\book-shop - Backup.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\c#\book-shop\book-shop\obj\MCD\Debug\netcoreapp3.1\book-shop - Backup.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\user\Desktop\c#\book-shop\book-shop\obj\MCD\Debug\netcoreapp3.1\book-shop - Backup.RazorAssemblyInfo.cache
+C:\Users\user\Desktop\c#\book-shop\book-shop\obj\MCD\Debug\netcoreapp3.1\book-shop - Backup.RazorAssemblyInfo.cs
