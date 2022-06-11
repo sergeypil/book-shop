@@ -1,77 +1,153 @@
+using AutoMapper;
 using book_shop.Data;
+using book_shop.Data.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace book_shop
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IConfiguration _config;
+        private readonly IHostingEnvironment _environment;
+
+        public Startup(IConfiguration config, IHostingEnvironment environment)
         {
-            Configuration = configuration;
+            _config = config;
+            _environment = environment;
         }
 
-        public IConfiguration Configuration { get; }
-
+        /// <summary>
+        /// Scoped service vs Transient service
+        /// Transient - services that are created as needed, they are usually 
+        /// stateless
+        /// Scoped - DBContext is by default added as this. Cached and reused within
+        /// scope. With each request, a scope is begun and ended.
+        /// Singleton - created once and shared throughout the application
+        /// </summary>
+        /// <param name="services"></param>
         // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-/**/            services.AddDbContext<BookContext>(cfg =>
+            // many more options available for configuration
+            // in this one we are only going to use unique email configuration option
+            // AddIdentity has fluent interface. so you can tell it where the data is stored
+            // a lot of applications separate out identity context and app data context.
+            // as this is a fairly simple one, we have just combined it into the same
+            // Also makes sense here as Identity and Orders have a relationship in our application.
+            services.AddIdentity<StoreUser, IdentityRole>(cfg =>
             {
-                cfg.UseNpgsql("Host=localhost;Port=5432;Database=books;Username=postgres;Password=postgres");
-            });
+                cfg.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<BookContext>();
+
+            // cookie auth and token auth
+            services.AddAuthentication().AddCookie().AddJwtBearer(
+              cfg =>
+              cfg.TokenValidationParameters = new TokenValidationParameters()
+              {
+                  ValidIssuer = _config["Tokens:Issuer"],
+                  ValidAudience = _config["Tokens:Audience"],
+                  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]))
+              }
+            );
+
+            // Please make db context as part of the service collection 
+            // So that i can access it from a controller
+            services.AddDbContext<BookContext>(cfg => cfg.UseNpgsql(_config.GetConnectionString("BookConnectionString")));
+            services.BuildServiceProvider().GetService<BookContext>().Database.Migrate();
+            // without mapper.reset, running dotnet ef database drop would fail with the following error:
+            // Application startup exception: System.InvalidOperationException: Mapper already initialized. You must call Initialize once per application domain/process.
+            Mapper.Reset();
+            services.AddAutoMapper();
+            //services.AddScoped - lives for the length of request
+            //services.AddSingleton - lives for as long as the program is alive
             services.AddTransient<BookSeeder>();
-            services.AddControllersWithViews();
-            services.AddRazorPages();
-            
+
+            // add IDutchRepository with implementation DutchRepository
+            services.AddScoped<IBookRepository, BookRepository>();
+
+            /*Requires to use Dependency Injection!
+             * how to enable https in production
+             */
+            services.AddMvc(opt =>
+            {
+                if (_environment.IsProduction() && _config["DisableSSL"] != "true")
+                {
+                    opt.Filters.Add(new RequireHttpsAttribute());
+                }
+            }).AddNewtonsoftJson(option => option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        // the order of everything you do inside this function matters. the pipeline of handling matters 
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            
-            //app.UseStaticFiles();
-            app.UseRouting();
-            app.UseEndpoints(cfg =>
-            {
-                //cfg.MapRazorPages();
-                cfg.MapControllerRoute("Default",
-                    "/{controller}/{action}/",
-                    new { controller = "App", action = "Index" }
-                    );
-            });
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World!");
+            //});
 
-            /*if (env.IsDevelopment())
+            // to set a default home file.
+            // index.html is a default file that microsoft supports
+            // order is important - default file should be first. else file cannot find. 
+            //app.UseDefaultFiles();
+
+            //asks the server to serve static files that are in www root
+            //whenever an exception is thrown, show the full stack trace for information. 
+            // a naive way to only show this to developers is to ensure you do this like 
+            // #if debug pragma
+            // not a great idea, instead use 
+
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                app.UseExceptionHandler("/error");
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            // this is where you turn on the authentication!
+            // this has to be done before your MVC is initialized
+            app.UseAuthentication();
+
+            /*      app.UseMvc(cfg =>
+                 {
+                   *//* default behaviour is to direct the site to App controller's Index view*//*
+                   cfg.MapRoute("Default",
+                             "{controller}/{action}/{id?}",
+                             new { controller = "App", Action = "Index" });
+                 });*/
             app.UseRouting();
-
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
-            });*/
+                endpoints.MapControllerRoute("default", "{controller}/{action}/{id?}",
+                 new { controller = "App", Action = "Index" });
+            });
+
+            // Only do seeding in development. protect production
+            if (env.IsDevelopment())
+            {
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    //creates a dutchseeder instance with prerequisites if any
+                    var seeder = scope.ServiceProvider.GetService<BookSeeder>();
+                    //making configure wait for seed to finish
+                    //cannot make Configure async as it isn't expected to run asynchronously
+                    seeder.Seed().Wait();
+                }
+            }
         }
     }
 }

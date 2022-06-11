@@ -1,4 +1,5 @@
 ﻿using book_shop.Data.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,21 +8,20 @@ using System.Threading.Tasks;
 
 namespace book_shop.Data
 {
-    public class BookContext : DbContext
+    public class BookContext : IdentityDbContext<StoreUser>
     {
-        public BookContext(DbContextOptions<BookContext> options)
-    : base(options)
+        public BookContext(DbContextOptions<BookContext> dbContextOptions) : base(dbContextOptions)
         { }
         public Microsoft.EntityFrameworkCore.DbSet<Product> Products { get; set; }
         public Microsoft.EntityFrameworkCore.DbSet<Order> Orders { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+/*        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=books;Username=postgres;Password=postgres");
-        }
+        }*/
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+      /*  protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Order>()
@@ -31,6 +31,6 @@ namespace book_shop.Data
                     OrderDate = DateTime.UtcNow,
                     OrderNumber = "12345"
                 });
-        }
+        }*/
     }
 }

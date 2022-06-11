@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace book_shop.Controllers
 {
+
     public class AppController : Controller
     {
-        private readonly BookContext bookContext;
+        private readonly IBookRepository bookRepository;
 
-        public AppController(BookContext bookContext)
+        public AppController(IBookRepository bookRepository)
         {
-            this.bookContext = bookContext;
+            this.bookRepository = bookRepository;
         }
 
         public IActionResult Index()
@@ -28,14 +29,14 @@ namespace book_shop.Controllers
             return View();
         }
         [HttpPost("contac")]
-        public IActionResult Contact(LoginModel loginModel)
+        public IActionResult Contact(LoginViewModel loginModel)
         {
             return View();
         }
 
         public IActionResult Shop()
         {
-            var results = bookContext.Products.ToList();
+            var results = bookRepository.GetAllProducts();
             return View(results);
         }
     }
