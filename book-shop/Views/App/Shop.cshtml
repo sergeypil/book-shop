@@ -1,18 +1,23 @@
 ﻿@model IEnumerable<Product>
-
+@section Scripts {
+    <script src="~/client/main.49564b1c8dacf37b.js" asp-append-version="true"></script>
+    <script src="~/client/polyfills.11eaa6302bbf0501.js"></script>
+    <script src="~/client/runtime.29684502020cc96e.js"></script>
+}
 <h1>Shop</h1>
 
 @foreach (var p in Model)
 
 {
-    <li>@p.Title</li>
-    <img src="img/VanGogh.jpg" />
-    <h3>Mug</h3>
-    <ul class="product-props">
-        <li>Price: @p.Price</li>
-        <li>Artist: </li>
-        <li>Title: @p.Title</li>
-        <li>Description: Self Portrait</li>
-    </ul>
-    <button id="buyButton" class="btn btn-success">Buy</button>
+    <app-root></app-root>
+    @*    <li>@p.Title</li>
+        <img src="img/VanGogh.jpg" />
+        <h3>Mug</h3>
+        <ul class="product-props">
+            <li>Price: @p.Price</li>
+            <li>Artist: </li>
+            <li>Title: @p.Title</li>
+            <li>Description: Self Portrait</li>
+        </ul>
+        <button id="buyButton" class="btn btn-success">Buy</button>*@
 }

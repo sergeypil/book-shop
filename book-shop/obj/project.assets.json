@@ -8828,11 +8828,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\c#\\book-shop\\book-shop\\book-shop.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\c_sharp\\book-shop\\book-shop\\book-shop.csproj",
       "projectName": "book-shop",
-      "projectPath": "C:\\Users\\User\\Desktop\\c#\\book-shop\\book-shop\\book-shop.csproj",
+      "projectPath": "C:\\Users\\User\\Desktop\\c_sharp\\book-shop\\book-shop\\book-shop.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\c#\\book-shop\\book-shop\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\c_sharp\\book-shop\\book-shop\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
