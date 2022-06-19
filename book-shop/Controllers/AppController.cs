@@ -10,34 +10,12 @@ namespace book_shop.Controllers
 {
 
     public class AppController : Controller
-    {
-        private readonly IBookRepository bookRepository;
+    { 
 
-        public AppController(IBookRepository bookRepository)
-        {
-            this.bookRepository = bookRepository;
-        }
-
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
-        }
-
-        [HttpGet("contac")]
-        public IActionResult Contact()
-        {
-            return View();
-        }
-        [HttpPost("contac")]
-        public IActionResult Contact(LoginViewModel loginModel)
-        {
-            return View();
-        }
-
-        public IActionResult Shop()
-        {
-            var results = bookRepository.GetAllProducts();
-            return View(results);
+            return View("~/Views/App/Index.cshtml");
         }
     }
 }

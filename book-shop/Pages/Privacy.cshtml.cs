@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace book_shop.Pages
+namespace temp.Pages
 {
     public class PrivacyModel : PageModel
     {

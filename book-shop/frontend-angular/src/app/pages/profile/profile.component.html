@@ -1,0 +1,21 @@
+﻿<div class="row">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>date</th>
+                <th>number</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let order of orders" [routerLink]="['/order', order.orderId]">
+                <td>{{order.orderId}}</td>
+                <td>{{order.orderDate}}</td>
+                <td>{{order.orderNumber}}</td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

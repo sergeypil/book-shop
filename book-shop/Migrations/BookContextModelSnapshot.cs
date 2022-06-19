@@ -207,34 +207,22 @@ namespace book_shop.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("ArtDating")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ArtDescription")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ArtId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Artist")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("ArtistBirthDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime>("ArtistDeathDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("ArtistNationality")
+                    b.Property<string>("Author")
                         .HasColumnType("text");
 
                     b.Property<string>("Category")
                         .HasColumnType("text");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ISBN")
+                        .HasColumnType("text");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("Size")
+                    b.Property<string>("Publisher")
                         .HasColumnType("text");
 
                     b.Property<string>("Title")

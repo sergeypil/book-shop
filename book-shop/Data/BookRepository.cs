@@ -28,7 +28,7 @@ namespace book_shop.Data
         {
             foreach (var item in newOrder.Items)
             {
-                item.Product = _ctx.Products.Find(item.Product.Id);
+                item.Product = _ctx.Products.Find(item.ProductId);
             }
 
             AddEntity(newOrder);

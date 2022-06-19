@@ -95,7 +95,7 @@ namespace book_shop.Controllers
                         var token = new JwtSecurityToken(_config["Tokens:Issuer"], 
                           _config["Tokens:Audience"], 
                           claims,
-                          expires: DateTime.UtcNow.AddMinutes(20),
+                          expires: DateTime.UtcNow.AddMinutes(3600),
                           signingCredentials: credentials);
 
                         var results = new

@@ -1,0 +1,9 @@
+﻿<table class="table table-bordered table-hover">
+    <tr *ngFor="let o of order.items">
+        <td><img src="/img/{{ o.productIsbn }}.jpg" alt="o.productTitle" class="img-thumbnail checkout-thumb" width="200" height="100" /></td>
+        <td>{{ o.productCategory }}: {{ o.productTitle }}</td>
+        <td>{{ o.quantity }}</td>
+        <td>{{ o.unitPrice|currency:'USD':true }}</td>
+        <td>{{ (o.unitPrice * o.quantity)|currency:'USD':true }}</td>
+    </tr>
+</table>

@@ -55,7 +55,12 @@ namespace book_shop.Controllers
             try
             {
                 var order = _bookRepository.GetOrderById(User.Identity.Name, id);
-                if (order != null) return Ok(_mapper.Map<Order, OrderViewModel>(order));
+                if (order != null)
+                {
+                    OrderViewModel orderViewModel = _mapper.Map<Order, OrderViewModel>(order);
+
+                    return Ok(orderViewModel);
+                }
                 return NotFound();
             }
             catch (Exception ex)

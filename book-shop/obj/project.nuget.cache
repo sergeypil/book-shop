@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "60TuJcgT9nmbvFogE+rxoJz8l/UCge2M/vqocpbFA6Cy2Y3o6lwlEmq3GIvbDrIF6KClyL+ywntiG+o64NNL1Q==",
+  "dgSpecHash": "WnU7ahRpbvW45c/54OR/rTgKe1of49HeqG1UqYK4ZVCPZcJlxcn5zQ2HQ69OZqGs+XNYI/eMwWZDxi/lUH0McQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\User\\Desktop\\c_sharp\\book-shop\\book-shop\\book-shop.csproj",
   "expectedPackageFiles": [
@@ -72,6 +72,7 @@
     "C:\\Users\\User\\.nuget\\packages\\microsoft.net.http.headers\\2.2.0\\microsoft.net.http.headers.2.2.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.2\\microsoft.netcore.platforms.2.1.2.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.typescript.msbuild\\4.7.3\\microsoft.typescript.msbuild.4.7.3.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration\\3.1.5\\microsoft.visualstudio.web.codegeneration.3.1.5.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.contracts\\3.1.5\\microsoft.visualstudio.web.codegeneration.contracts.3.1.5.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.core\\3.1.5\\microsoft.visualstudio.web.codegeneration.core.3.1.5.nupkg.sha512",

@@ -28,7 +28,7 @@ namespace book_shop.Data
         {
             _ctx.Database.EnsureCreated();
 
-            var user = await _userManager.FindByEmailAsync("eakan@dutchtreat.com");
+            var user = await _userManager.FindByEmailAsync("test@mail.com");
             if (user == null)
             {
                 user = new StoreUser()
@@ -38,7 +38,7 @@ namespace book_shop.Data
                     UserName = "test@mail.com",
                     Email = "test@mail.com"
                 };
-                var result = await _userManager.CreateAsync(user, "Test123");
+                var result = await _userManager.CreateAsync(user, "Test123@");
                 if (result != IdentityResult.Success)
                 {
                     throw new InvalidOperationException("Failed to create default user!");

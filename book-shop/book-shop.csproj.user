@@ -10,6 +10,21 @@
     <WebStackScaffolding_ViewDialogWidth>650,4</WebStackScaffolding_ViewDialogWidth>
   </PropertyGroup>
   <ItemGroup>
+    <TypeScriptCompile Update="frontend-angular\src\app\shared\LoginResults.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Update="frontend-angular\src\app\services\authActivator.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Update="frontend-angular\src\app\router\index.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+  </ItemGroup>
+  <ItemGroup>
     <TypeScriptCompile Update="frontend-angular\src\app\shared\order.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

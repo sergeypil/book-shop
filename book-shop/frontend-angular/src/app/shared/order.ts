@@ -1,26 +1,25 @@
-﻿
-export class Order {
-    orderId: number;
+﻿export class Order {
+    orderId!: number;
     orderDate: Date = new Date();
-    orderNumber: string;
+    orderNumber!: string;
     items: Array<OrderItem> = new Array<OrderItem>();
 
     get subtotal(): number {
-        // use lodash to sum up thte totals
-        // _.map() creates a collection of unitPrice * quantity for every 
-        // item. then _.sum() is going to add it all.
-        return _.sum(_.map(this.items, i => i.unitPrice * i.quantity));
+        const result = this.items.reduce(
+            (tot, val) => {
+                return tot + (val.unitPrice * val.quantity);
+            }, 0);
+        return result;
     };
 }
 
 export class OrderItem {
-    id: number;
-    quantity: number;
-    unitPrice: number;
-    productId: number;
-    productCategory: string;
-    productSize: string;
-    productTitle: string;
-    productArtist: string;
-    productArtId: string;
+    id!: number;
+    quantity!: number;
+    unitPrice!: number;
+    productId!: number;
+    productCategory!: string;
+    productTitle!: string;
+    productAuthor!: string;
+    productIsbn!: string;
 }
